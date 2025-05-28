@@ -3,25 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>Tableau de Bord</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Bienvenue, {{ user[1] }}</h1>
-    <p>
-        <i class="fas fa-coffee"></i> Café Court: {{ user[3] }}
-    </p>
-    <p>
-        <i class="fas fa-mug-hot"></i> Café Long: {{ user[4] }}
-    </p>
-    <p>Total dépensé: {{ total_amount }} €</p>
-    <a href="{{ url_for('add_coffee', coffee_type='court') }}"><button>Ajouter Café Court</button></a>
-    <a href="{{ url_for('add_coffee', coffee_type='long') }}"><button>Ajouter Café Long</button></a>
-    
-    {% if user[5] == 'admin' %}
-        <a href="{{ url_for('admin_dashboard') }}"><button>Accéder au Tableau de Bord Admin</button></a>
-    {% endif %}
-    
-    <a href="{{ url_for('logout') }}"><button>Se déconnecter</button></a>
+    <div class="container">
+        <h1 class="text-center mt-5">Bienvenue, {{ user[1] }}</h1>
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <p><strong>Café Court:</strong> {{ user[3] }}</p>
+            </div>
+            <div class="col-md-6">
+                <p><strong>Café Long:</strong> {{ user[4] }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <p><strong>Total dépensé:</strong> {{ total_amount }} €</p>
+            </div>
+        </div>
+        <div class="mt-4">
+            <a href="{{ url_for('add_coffee', coffee_type='court') }}" class="btn btn-primary">Ajouter Café Court</a>
+            <a href="{{ url_for('add_coffee', coffee_type='long') }}" class="btn btn-secondary">Ajouter Café Long</a>
+            {% if user[5] == 'admin' %}
+                <a href="{{ url_for('admin_dashboard') }}" class="btn btn-warning">Accéder au Tableau de Bord Admin</a>
+            {% endif %}
+            <a href="{{ url_for('logout') }}" class="btn btn-danger">Se déconnecter</a>
+        </div>
+    </div>
 </body>
 </html>

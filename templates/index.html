@@ -2,53 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Comptabilisateur de Café</title>
+    <title>Tableau de Bord</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
-    <style>
-        table {
-            width: 50%;
-            margin: 20px auto;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 10px;
-            text-align: center;
-            border: 1px solid #ddd;
-        }
-        button {
-            padding: 5px 10px;
-        }
-    </style>
 </head>
 <body>
-    <h1 style="text-align: center;">Comptabilisateur de Café</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Nom</th>
-                <th>Café Type 1</th>
-                <th>Café Type 2</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for user in users %}
-            <tr>
-                <td>{{ user[1] }}</td>
-                <td>{{ user[2] }}</td>
-                <td>{{ user[3] }}</td>
-                <td>
-                    <a href="{{ url_for('add_coffee', user_id=user[0], coffee_type=1) }}">
-                        <button>Ajouter Café Type 1</button>
-                    </a>
-                    <a href="{{ url_for('add_coffee', user_id=user[0], coffee_type=2) }}">
-                        <button>Ajouter Café Type 2</button>
-                    </a>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="container mt-5">
+        <h1 class="text-center">Bienvenue, {{ user[1] }}</h1>
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <p><strong>Café Court:</strong> {{ user[3] }}</p>
+            </div>
+            <div class="col-md-6">
+                <p><strong>Café Long:</strong> {{ user[4] }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <p><strong>Total dépensé:</strong> {{ total_amount }} €</p>
+            </div>
+        </div>
+        <div class="mt-4">
+            <a href="{{ url_for('add_coffee', coffee_type='court') }}" class="btn btn-primary">Ajouter Café Court</a>
+            <a href="{{ url_for('add_coffee', coffee_type='long') }}" class="btn btn-secondary">Ajouter Café Long</a>
+            {% if user[5] == 'admin' %}
+                <a href="{{ url_for('admin_dashboard') }}" class="btn btn-warning">Accéder au Tableau de Bord Admin</a>
+            {% endif %}
+            <a href="{{ url_for('logout') }}" class="btn btn-danger">Se déconnecter</a>
+        </div>
+    </div>
 </body>
 </html>

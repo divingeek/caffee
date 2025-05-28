@@ -1,10 +1,24 @@
 body {
-    font-family: 'Amatic SC', cursive;
-    background-color: #f5f5dc; /* Arrière-plan café crème */
+    background-color: #f5f5dc; /* Couleur café crème */
     color: #333;
-    text-align: center;
-    margin: 0;
-    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+.container {
+    background-color: #fffafa; /* Une légère couleur de fond pour les conteneurs */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+    background-color: #8b4513; /* Couleur café pour les boutons primaires */
+    border-color: #8b4513;
+}
+
+.btn-primary:hover {
+    background-color: #a0522d;
+    border-color: #a0522d;
 }
 
 form {
@@ -29,9 +43,6 @@ input[type="text"], input[type="password"] {
     background-color: #fdf5e6; /* Arrière-plan champ café crème */
 }
 
-/* Le reste de votre CSS reste inchangé */
-
-/* Le reste de votre CSS reste inchangé */
 
 h1 {
     color: #ff4500;

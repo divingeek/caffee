@@ -3,27 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>Inscription</title>
-	<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <h1>Inscription</h1>
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-        <ul>
-            {% for message in messages %}
-                <li style="color: red;">{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-    {% endwith %}
-    <form method="POST">
-        <label>Nom d'utilisateur:</label>
-        <input type="text" name="name" required>
-        <label>Mot de passe:</label>
-        <input type="password" name="password" required>
-        <button type="submit">S'inscrire</button>
-    </form>
-    <p>Déjà inscrit ? <a href="{{ url_for('login') }}">Connectez-vous ici</a>.</p>
+    <div class="container">
+        <h1 class="text-center mt-5">Inscription</h1>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert alert-danger mt-3">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        <form method="POST" class="mt-4">
+            <div class="form-group">
+                <label for="username">Nom d'utilisateur:</label>
+                <input type="text" class="form-control" id="username" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Mot de passe:</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <button type="submit" class="btn btn-success btn-block">S'inscrire</button>
+        </form>
+        <p class="mt-3 text-center">Déjà inscrit ? <a href="{{ url_for('login') }}">Connectez-vous ici</a>.</p>
+    </div>
 </body>
 </html>

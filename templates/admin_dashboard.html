@@ -3,39 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Tableau de Bord Administrateur</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Nom</th>
-                <th>Café Court</th>
-                <th>Café Long</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for user in users %}
-            <tr>
-                <td>{{ user[0] }}</td>
-                <td>{{ user[1] }}</td>
-                <td>{{ user[2] }}</td>
-                <td>
-                    <form action="{{ url_for('reset_counter', user_id=user[3]) }}" method="post" style="display:inline;">
-                        <button type="submit">Remettre à zéro</button>
-                    </form>
-                    <form action="{{ url_for('delete_user', user_id=user[3]) }}" method="post" style="display:inline;">
-                        <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">Supprimer</button>
-                    </form>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <a href="{{ url_for('update_prices') }}"><button>Modifier les Prix</button></a>
-    <a href="{{ url_for('logout') }}"><button>Se déconnecter</button></a>
+    <div class="container">
+        <h1 class="text-center mt-5">Tableau de Bord Administrateur</h1>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert alert-info mt-3">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        <table class="table table-striped mt-4">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Café Court</th>
+                    <th>Café Long</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user[0] }}</td>
+                    <td>{{ user[1] }}</td>
+                    <td>{{ user[2] }}</td>
+                    <td>
+                        <form action="{{ url_for('reset_counter', user_id=user[3]) }}" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-secondary btn-sm">Remettre à zéro</button>
+                        </form>
+                        <form action="{{ url_for('delete_user', user_id=user[3]) }}" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ url_for('update_prices') }}" class="btn btn-warning">Modifier les Prix</a>
+        <a href="{{ url_for('logout') }}" class="btn btn-danger">Se déconnecter</a>
+    </div>
 </body>
 </html>
