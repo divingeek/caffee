@@ -4,9 +4,10 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 app.secret_key = 'votre_cle_secrete'  # Assurez-vous de définir une clé secrète
+databaseFile="/opt/caffee/coffee.db"
 
 def init_db():
-    conn = sqlite3.connect('coffee.db')
+    conn = sqlite3.connect(databaseFile)
     c = conn.cursor()
     c.execute('''
         CREATE TABLE IF NOT EXISTS users (
@@ -36,7 +37,7 @@ def init_db():
 def index():
     if 'user_id' in session:
         user_id = session['user_id']
-        conn = sqlite3.connect('coffee.db')
+        conn = sqlite3.connect(databaseFile)
         c = conn.cursor()
         c.execute('SELECT * FROM users WHERE id = ?', (user_id,))
         user = c.fetchone()
@@ -60,7 +61,7 @@ def register():
         name = request.form['name']
         password = generate_password_hash(request.form['password'])
         
-        conn = sqlite3.connect('coffee.db')
+        conn = sqlite3.connect(databaseFile)
         c = conn.cursor()
         
         # Vérifier si le nom d'utilisateur existe déjà
@@ -87,7 +88,7 @@ def login():
         name = request.form['name']
         password = request.form['password']
         
-        conn = sqlite3.connect('coffee.db')
+        conn = sqlite3.connect(databaseFile)
         c = conn.cursor()
         c.execute('SELECT * FROM users WHERE name = ?', (name,))
         user = c.fetchone()
@@ -107,7 +108,7 @@ def login():
 def add_coffee(coffee_type):
     if 'user_id' in session:
         user_id = session['user_id']
-        conn = sqlite3.connect('coffee.db')
+        conn = sqlite3.connect(databaseFile)
         c = conn.cursor()
         if coffee_type == "court":
             c.execute('UPDATE users SET coffee_court = coffee_court + 1 WHERE id = ?', (user_id,))
@@ -126,7 +127,7 @@ def logout():
 def admin_dashboard():
     if 'user_id' in session:
         user_id = session['user_id']
-        conn = sqlite3.connect('coffee.db')
+        conn = sqlite3.connect(databaseFile)
         c = conn.cursor()
         c.execute('SELECT role FROM users WHERE id = ?', (user_id,))
         role = c.fetchone()[0]
@@ -145,7 +146,7 @@ def admin_dashboard():
 def delete_user(user_id):
     if 'user_id' in session:
         admin_id = session['user_id']
-        conn = sqlite3.connect('coffee.db')
+        conn = sqlite3.connect(databaseFile)
         c = conn.cursor()
         c.execute('SELECT role FROM users WHERE id = ?', (admin_id,))
         role = c.fetchone()[0]
@@ -161,7 +162,7 @@ def delete_user(user_id):
 def update_prices():
     if 'user_id' in session:
         user_id = session['user_id']
-        conn = sqlite3.connect('coffee.db')
+        conn = sqlite3.connect(databaseFile)
         c = conn.cursor()
         c.execute('SELECT role FROM users WHERE id = ?', (user_id,))
         role = c.fetchone()[0]
@@ -184,7 +185,7 @@ def update_prices():
 def reset_counter(user_id):
     if 'user_id' in session:
         admin_id = session['user_id']
-        conn = sqlite3.connect('coffee.db')
+        conn = sqlite3.connect(databaseFile)
         c = conn.cursor()
         c.execute('SELECT role FROM users WHERE id = ?', (admin_id,))
         role = c.fetchone()[0]
@@ -197,7 +198,7 @@ def reset_counter(user_id):
     return redirect(url_for('admin_dashboard'))
 
 def create_admin():
-    conn = sqlite3.connect('coffee.db')
+    conn = sqlite3.connect(databaseFile)
     c = conn.cursor()
     # Vérifier si un administrateur existe déjà
     c.execute('SELECT * FROM users WHERE role = ?', ('admin',))
