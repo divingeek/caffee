@@ -5,29 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tableau de Bord</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles2.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
     <div class="container mt-5">
-        <h1 class="text-center">Bienvenue, {{ user[1] }}</h1>
-        <div class="row mt-4">
+        <h1 class="text-center mb-4">Bienvenue, {{ user[1] }}</h1>
+        <div class="row">
             <div class="col-12 col-md-6 mb-3">
-                <p><strong>Café Court:</strong> {{ user[3] }}</p>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Café Court</h5>
+                        <p class="card-text">{{ user[3] }}</p>
+                    </div>
+                </div>
             </div>
             <div class="col-12 col-md-6 mb-3">
-                <p><strong>Café Long:</strong> {{ user[4] }}</p>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Café Long</h5>
+                        <p class="card-text">{{ user[4] }}</p>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row">
             <div class="col-12 mb-3">
-                <p><strong>Total dépensé:</strong> {{ total_amount }} €</p>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Total dépensé</h5>
+                        <p class="card-text">{{ total_amount }} €</p>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="mt-3 d-flex flex-wrap">
+        <div class="mt-4 d-flex flex-wrap">
             <a href="{{ url_for('add_coffee', coffee_type='court') }}" class="btn btn-primary mb-2 mr-2">Ajouter Café Court</a>
             <a href="{{ url_for('add_coffee', coffee_type='long') }}" class="btn btn-secondary mb-2 mr-2">Ajouter Café Long</a>
             {% if user[5] == 'admin' %}
