@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Comptabilisateur de Café</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+    <style>
+        table {
+            width: 50%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        button {
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Comptabilisateur de Café</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Café Type 1</th>
+                <th>Café Type 2</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user[1] }}</td>
+                <td>{{ user[2] }}</td>
+                <td>{{ user[3] }}</td>
+                <td>
+                    <a href="{{ url_for('add_coffee', user_id=user[0], coffee_type=1) }}">
+                        <button>Ajouter Café Type 1</button>
+                    </a>
+                    <a href="{{ url_for('add_coffee', user_id=user[0], coffee_type=2) }}">
+                        <button>Ajouter Café Type 2</button>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

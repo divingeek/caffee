@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tableau de Bord</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1>Bienvenue, {{ user[1] }}</h1>
+    <p>
+        <i class="fas fa-coffee"></i> Café Court: {{ user[3] }}
+    </p>
+    <p>
+        <i class="fas fa-mug-hot"></i> Café Long: {{ user[4] }}
+    </p>
+    <p>Total dépensé: {{ total_amount }} €</p>
+    <a href="{{ url_for('add_coffee', coffee_type='court') }}"><button>Ajouter Café Court</button></a>
+    <a href="{{ url_for('add_coffee', coffee_type='long') }}"><button>Ajouter Café Long</button></a>
+    
+    {% if user[5] == 'admin' %}
+        <a href="{{ url_for('admin_dashboard') }}"><button>Accéder au Tableau de Bord Admin</button></a>
+    {% endif %}
+    
+    <a href="{{ url_for('logout') }}"><button>Se déconnecter</button></a>
+</body>
+</html>

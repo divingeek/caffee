@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Modifier les Prix</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Modifier les Prix</h1>
+    <form method="POST">
+        <label>Prix du Café Court:</label>
+        <input type="text" name="coffee_court_price" value="{{ prices[0] }}" required>
+        <label>Prix du Café Long:</label>
+        <input type="text" name="coffee_long_price" value="{{ prices[1] }}" required>
+        <button type="submit">Mettre à jour</button>
+    </form>
+    <a href="{{ url_for('admin_dashboard') }}"><button>Retour au Tableau de Bord Admin</button></a>
+</body>
+</html>

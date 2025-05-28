@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1>Tableau de Bord Administrateur</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Café Court</th>
+                <th>Café Long</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user[0] }}</td>
+                <td>{{ user[1] }}</td>
+                <td>{{ user[2] }}</td>
+                <td>
+                    <form action="{{ url_for('reset_counter', user_id=user[3]) }}" method="post" style="display:inline;">
+                        <button type="submit">Remettre à zéro</button>
+                    </form>
+                    <form action="{{ url_for('delete_user', user_id=user[3]) }}" method="post" style="display:inline;">
+                        <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">Supprimer</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('update_prices') }}"><button>Modifier les Prix</button></a>
+    <a href="{{ url_for('logout') }}"><button>Se déconnecter</button></a>
+</body>
+</html>
