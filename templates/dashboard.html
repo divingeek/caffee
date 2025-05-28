@@ -13,8 +13,9 @@
 <body>
     <div class="container mt-5">
         <h1 class="text-center mb-4">Bienvenue, {{ user[1] }}</h1>
-        <div class="row">
-            <div class="col-12 col-md-6 mb-3">
+        <h2>Mes consommations</h2> 
+        <div class="row justify-content-md-center">
+            <div class="col-md-auto">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Café Court</h5>
@@ -22,7 +23,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-6 mb-3">
+            <div class="col-md-auto">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Café Long</h5>
@@ -30,9 +31,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-12 mb-3">
+            <div class="col-md-auto">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Total dépensé</h5>
@@ -44,9 +43,30 @@
         <div class="mt-4 d-flex flex-wrap">
             <a href="{{ url_for('add_coffee', coffee_type='court') }}" class="btn btn-primary mb-2 mr-2">Ajouter Café Court</a>
             <a href="{{ url_for('add_coffee', coffee_type='long') }}" class="btn btn-secondary mb-2 mr-2">Ajouter Café Long</a>
+        </div>
+        <h2>Consommations totales de la machine:</h2>
+        <div class="row">
+            <div class="col-12 mb-3">
+
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Total des cafés consommés depuis le début:</h5>
+                        <p class="card-text">{{ total_coffee }}</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Total de cafés depuis le paquet actuel {{ package_name }}:</h5>
+                        <p class="card-text">{{ total_since_reset }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-4 d-flex flex-wrap">
             {% if user[5] == 'admin' %}
                 <a href="{{ url_for('admin_dashboard') }}" class="btn btn-warning mb-2 mr-2">Accéder au Tableau de Bord Admin</a>
             {% endif %}
+            <!--<a href="{{ url_for('update_package') }}" class="btn btn-secondary mb-2 mr-2">Modifier le Paquet de Café</a>-->
             <a href="{{ url_for('logout') }}" class="btn btn-danger mb-2">Se déconnecter</a>
         </div>
     </div>

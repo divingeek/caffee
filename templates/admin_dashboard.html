@@ -50,8 +50,14 @@
                 {% endfor %}
             </tbody>
         </table>
-        <a href="{{ url_for('update_prices') }}" class="btn btn-warning">Modifier les Prix</a>
-        <a href="{{ url_for('logout') }}" class="btn btn-danger">Se déconnecter</a>
+        <div class="mt-4 d-flex flex-wrap">
+            <a href="{{ url_for('add_package') }}" class="btn btn-info mb-2 mr-2">Ajouter un Nouveau Paquet de Café</a>
+            <a href="{{ url_for('update_prices') }}" class="btn btn-warning mb-2 mr-2">Modifier les Prix</a>
+        </div>
+        <div class="mt-4 d-flex flex-wrap">
+            <a href="{{ url_for('index') }}" class="btn btn-warning mb-2 mr-2">Retour</a>
+            <a href="{{ url_for('logout') }}" class="btn btn-danger mb-2 mr-2">Se déconnecter</a>
+        </div>
     </div>
 </body>
 </html>
