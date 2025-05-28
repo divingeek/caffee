@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import sqlite3
+import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
@@ -38,7 +39,9 @@ def init_db():
         CREATE TABLE IF NOT EXISTS coffee_package (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             package_name TEXT,
-            active INTEGER DEFAULT 0
+            active INTEGER DEFAULT 0,
+            coffee_court INTEGER DEFAULT 0,
+            coffee_long INTEGER DEFAULT 0
         )
     ''')
     # Insérer un paquet initial si la table est vide
@@ -52,8 +55,8 @@ def init_db():
     c.execute('''
         CREATE TABLE IF NOT EXISTS prices (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            coffee_court_price REAL DEFAULT 1.0,
-            coffee_long_price REAL DEFAULT 1.5
+            coffee_court_price REAL DEFAULT 0.20,
+            coffee_long_price REAL DEFAULT 0.40
         )
     ''')
     # Insérer les prix initiaux si la table est vide
@@ -232,11 +235,12 @@ def add_coffee(coffee_type):
         c = conn.cursor()
         if coffee_type == "court":
             c.execute('UPDATE users SET coffee_court = coffee_court + 1 WHERE id = ?', (user_id,))
+            c.execute('UPDATE coffee_package SET coffee_court = coffee_court + 1 WHERE active = 1')
         elif coffee_type == "long":
             c.execute('UPDATE users SET coffee_long = coffee_long + 1 WHERE id = ?', (user_id,))
-        
+            c.execute('UPDATE coffee_package SET coffee_long = coffee_long + 1 WHERE active = 1')    
         # Enregistrer la consommation dans le log
-        c.execute('INSERT INTO coffee_log (user_id, coffee_type) VALUES (?, ?)', (user_id, coffee_type))
+        c.execute('INSERT INTO coffee_log (user_id, coffee_type, date) VALUES (?, ?, ?)', (user_id, coffee_type,datetime.datetime.now()))
         
         # Mettre à jour les totaux globaux
         c.execute('UPDATE totals SET total_coffee = total_coffee + 1, total_since_reset = total_since_reset + 1')
